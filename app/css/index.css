@@ -1,0 +1,35 @@
+﻿#card-container {
+    border: 1px solid #333;
+    padding: 2rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    min-height: 150px;
+  }
+  .card-text {
+    font-size: 1.25rem;
+  }
+  #controls button {
+    margin-right: 1rem;
+  }
+  #progress {
+    margin-top: 1rem;
+    color: #666;
+  }
+  
+
+
+
+  
+  #controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  #ai-upload-btn {
+    background: #777;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  

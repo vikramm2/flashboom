@@ -7,12 +7,18 @@
 </head>
 <body>
   <h1>Flashboom AI Prototype</h1>
-  <input id="ai-topic" placeholder="Enter a topic…" />
-  <button id="ai-generate-btn">Generate Flashcards</button>
+  <div id="controls">
+    <input id="ai-topic" placeholder="Enter a topic…" />
 
-  <button id="ai-upload-btn">Upload Your Textbook (Coming Soon)</button>
+    <!-- Removed old file input: using native dialog instead -->
+    <!-- <input id="ai-pdf-input" type="file" accept="application/pdf,.pdf" /> -->
 
-  
-  <script src="js/index.js"></script>
+    <button id="ai-upload-btn">Upload Your Textbook</button>
+    <span id="pdf-filename" style="margin-left:0.5rem;font-style:italic;"></span>
+
+    <button id="ai-generate-btn">Generate Flashcards</button>
+  </div>
+
+  <script src="./js/index.js"></script>
 </body>
 </html>

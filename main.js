@@ -1,8 +1,7 @@
-﻿
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
-const {generateFlashcards} = require('./flashcardAi');
+﻿// main.js
+const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron');
+const { generateFlashcards } = require('./flashcardAi');
 const path = require('path');
-
 
 // 1) Create the Electron window and load index.html
 function createMainWindow() {
@@ -10,8 +9,8 @@ function createMainWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration:    true,
-      contextIsolation:   false,
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
@@ -23,6 +22,7 @@ function createMainWindow() {
 
 // 2) When Electron is ready, spawn the window
 app.whenReady().then(createMainWindow);
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
@@ -30,22 +30,28 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createMainWindow();
 });
 
-
-
-
-
-
-
-// 3) IPC handler: listen for topic requests, reply with 5 cards
-ipcMain.on('ai:generate-flashcards', async (event, { topic }) => {
-  console.log(`⏳ [MAIN] Generating flashcards for topic: "${topic}"`);
+// 3) IPC handler: listen for topic + optional filePath, reply with 5 cards
+ipcMain.on('ai:generate-flashcards', async (event, { topic, filePath }) => {
+  console.log(`⏳ [MAIN] Generating flashcards for topic: "${topic}" with PDF: ${filePath}`);
   try {
-    const cards = await generateFlashcards(topic);    // calls flashcardAI.js
+    const cards = await generateFlashcards(topic, filePath);
     console.log('✅ [MAIN] Flashcards generated:', cards);
-    // send JSON string of cards back to renderer
     event.reply('ai:flashcards-generated', JSON.stringify(cards));
   } catch (err) {
-    console.error('[MAIN] Error generating flashcards:', err);
+    console.error('❌ [MAIN] Error generating flashcards:', err);
     event.reply('ai:flashcards-error', err.message);
   }
+});
+
+// 4) IPC handler: open native file dialog for PDFs
+ipcMain.handle('open-file-dialog', async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    title: 'Select a PDF to generate flashcards from',
+    filters: [{ name: 'PDF Documents', extensions: ['pdf'] }],
+    properties: ['openFile']
+  });
+  if (canceled || filePaths.length === 0) {
+    return null;
+  }
+  return filePaths[0];
 });

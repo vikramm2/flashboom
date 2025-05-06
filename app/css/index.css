@@ -1,35 +1,127 @@
-﻿#card-container {
-    border: 1px solid #333;
-    padding: 2rem;
-    margin: 1rem 0;
-    border-radius: 8px;
-    min-height: 150px;
-  }
-  .card-text {
-    font-size: 1.25rem;
-  }
-  #controls button {
-    margin-right: 1rem;
-  }
-  #progress {
-    margin-top: 1rem;
-    color: #666;
-  }
-  
+﻿/* app/css/index.css */
 
+/* Base reset and typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: #222222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
 
-  
-  #controls {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-  
-  #ai-upload-btn {
-    background: #777;
-    color: #fff;
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-  
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #222222;
+}
+
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+#controls input,
+#controls button {
+  padding: 0.75rem 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9f9f9;
+  color: #222222;
+}
+
+#ai-topic {
+  flex: 1 1 300px;
+}
+
+#ai-upload-btn,
+#ai-generate-btn {
+  background: #222222;
+  color: #ffffff;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+#ai-upload-btn:hover,
+#ai-generate-btn:hover {
+  background: #555555;
+}
+
+#pdf-filename {
+  font-style: italic;
+  color: #555555;
+}
+
+/* Flashcard viewer styles */
+.flashcard-container {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#question {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #222222;
+}
+
+#answer {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  display: none;
+  color: #444444;
+}
+
+button#flip-btn,
+button#next-btn {
+  margin: 0.5rem;
+  border: none;
+  background: #222222;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  transition: transform 0.2s;
+}
+
+button#flip-btn:hover,
+button#next-btn:hover {
+  transform: scale(1.05);
+}
+
+#progress {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #555555;
+}
+
+/* Error banner */
+#error-banner {
+  background: #ffe6e6;
+  color: #cc0000;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
